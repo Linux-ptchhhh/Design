@@ -8,9 +8,11 @@ import java.util.Set;
  interface permission {
     void setPerm(String s,String path)throws IOException;
     void check(String s);
+    boolean ret(String s,int a);
 }
 
  class filePerm implements permission {
+
      public void setPerm(String s,String path)throws IOException{
          Set<PosixFilePermission> perm = PosixFilePermissions.fromString(s);
          Path p = Paths.get(path);
@@ -33,6 +35,20 @@ import java.util.Set;
              
              
         }
+
+    }
+    class determine implements permission{
+         public void ret(String s,int a){
+            Path p = Paths.get(s);
+            if(a == 1){
+                return Files.isReadable(s);
+            }
+            if(a == 2){
+                return Files.isWritable(p);
+            }
+
+         }
+
     }
     class perm{
         public static void main(String[] args) {

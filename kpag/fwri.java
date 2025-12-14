@@ -28,14 +28,21 @@ class Channel{
      }
     void filewrite(){
     try{
-        FileOutputStream fos = new FileOutputStream(fp);
+        FileOutputStream fos = new FileOutputStream(fp);//fp is open and waiting for copying file from fp2
         FileChannel fileChannel = fos.getChannel();
         long pos = fileChannel.position();
         Path p = Paths.get(fp2);
+        determine n = new determine();
+        int con = 2;
+       boolean b =  n.ret(fp,con);
+        if(b){
         byte[] bread = Files.readAllBytes(p);
         ByteBuffer b = ByteBuffer.wrap(bread);
         fileChannel.write(b,pos);
         System.out.println("Content has been written");
+    }else{
+        System.out.println("file doesn't have write permission");
+    }
       }catch(Exception e){e.printStackTrace();}
       }
 }

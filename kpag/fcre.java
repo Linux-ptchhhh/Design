@@ -58,13 +58,21 @@ import java.util.concurrent.Future;
       FileInputStream f = new FileInputStream(filepath);
       FileChannel fc = f.getChannel();
       try{
-          ByteBuffer buffer = ByteBuffer.allocate(4096); 
+        determine n = new determine();
+        int con = 1;
+        boolean b = n.ret(filepath,con);
+        if(b){
+        ByteBuffer buffer = ByteBuffer.allocate(4096); 
               int bytesRead = fc.read(buffer);
               buffer.flip();
               byte[] arr = new byte[buffer.remaining()];
         buffer.get(arr);
         String text = new String(arr, StandardCharsets.UTF_8);
         System.out.println(text);
+        }
+        else{
+          System.out.println("file doesn't have read permission");
+        }
       }catch(Exception e){e.printStackTrace();}
       finally{
         fc.close();
