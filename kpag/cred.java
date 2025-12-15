@@ -9,17 +9,18 @@ import java.util.stream.Stream;
 class Dirc{
    String dname;
    Dirc(String dname){
-   this.dname = dname;
+   this.dname = dname;}
    
-
+    void directoryCreate(){
    try{
-      Path directoryPath = Paths.get("dname");
-     Files.createDirectory(directoryPath);
+      Path directoryPath = Paths.get(dname);
+     Files.createDirectorys(directoryPath);
 
    }catch(Exception e){e.printStackTrace();}
+   }
 
-}
-        
+
+   
 }
 class Dird{
    Path dname;
