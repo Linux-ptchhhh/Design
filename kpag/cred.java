@@ -14,7 +14,7 @@ class Dirc{
     void directoryCreate(){
    try{
       Path directoryPath = Paths.get(dname);
-     Files.createDirectorys(directoryPath);
+     Files.createDirectory(directoryPath);
 
    }catch(Exception e){e.printStackTrace();}
    }

@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.io.File;
 import java.io.File.*;
 import java.nio.file.*;
 import java.nio.file.attribute.PosixFilePermission;
@@ -8,7 +9,6 @@ import java.util.Set;
  interface permission {
     void setPerm(String s,String path)throws IOException;
     void check(String s);
-    boolean ret(String s,int a);
 }
 
  class filePerm implements permission {
@@ -37,16 +37,16 @@ import java.util.Set;
         }
 
     }
-    class determine implements permission{
-         public void ret(String s,int a){
-            Path p = Paths.get(s);
+    class determine {
+         public boolean ret(String fp,int a){
+            Path p = Paths.get(fp);
             if(a == 1){
-                return Files.isReadable(s);
+                return Files.isReadable(p);
             }
             if(a == 2){
                 return Files.isWritable(p);
             }
-
+             return false;
          }
 
     }

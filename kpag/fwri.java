@@ -37,8 +37,8 @@ class Channel{
        boolean b =  n.ret(fp,con);
         if(b){
         byte[] bread = Files.readAllBytes(p);
-        ByteBuffer b = ByteBuffer.wrap(bread);
-        fileChannel.write(b,pos);
+        ByteBuffer bc = ByteBuffer.wrap(bread);
+        fileChannel.write(bc,pos);
         System.out.println("Content has been written");
     }else{
         System.out.println("file doesn't have write permission");
