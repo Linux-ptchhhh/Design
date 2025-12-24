@@ -27,7 +27,7 @@ class notf extends Exception{
 
 class Link implements link{
    
-     public void linking(String p1,String p2){
+    public void linking(String p1,String p2){
          Path p = Paths.get(p1);
          Path pp = Paths.get(p2);
          //creating symbolic link
@@ -49,7 +49,7 @@ class Link implements link{
 
      }
     
-     public void check(String s){
+    public void check(String s){   // this check symbolic link files and display it..
         Path p = Paths.get(s);
         try{
             DirectoryStream<Path> stream = Files.newDirectoryStream(p);
@@ -70,21 +70,22 @@ class Link implements link{
         }catch(IOException e){e.printStackTrace();}
      }
 
-     public void Check(String fp){
+    public boolean Check(String fp){
         Path p = Paths.get(fp);
            if(Files.isSymbolicLink(p)){
             System.out.println("Given file /Dir has symbolic link");
            }
+           return true;
      }
 
-     void Delete(String path) throws IOException{ //path for the link ,not the original file ::
+    void Delete(String path) throws IOException{ //path for the link ,not the original file ::
         Path p = Paths.get(path);
         if(Files.isSymbolicLink(p)){
             Files.delete(p);
         }
      }
 
-     void getPath(String path){
+    void getPath(String path){
         try{
             Path p = Paths.get(path);
             if(Files.exists(p)){
@@ -95,12 +96,43 @@ class Link implements link{
             else{
                 throw new notf("file not found");
             }
-         }catch(notf e){e.getMessage();}
+        }catch(notf e){e.getMessage();}
          catch(IOException e){e.getMessage();}
+         }
+
+    void BrokenSpe(String path){ //one for givene link file not for all system files; this method only handle the specific task
+           Path p = Paths.get(path);
+           try{
+            if(Files.isSymbolicLink(p)){
+                Path p1 = Files.readSymbolicLink(p);
+                Path re = p.getParent().resolve(p1);
+                if(!Files.exists(re)){
+                      System.out.println("Broken symblink");
+                      System.out.println("Maybe target/link file is missed");
+                }
+                else{
+                    System.out.println("No broken occured");
+                }
+            }
+            else{
+                System.out.println("File is not in link");
+            }
+           }catch(Exception e){e.printStackTrace();}
 
          }
 
-     }
+    void changeLink(String target,String link){ // (target file and new link file) for changing the link of the file;;
+          try{
+             boolean b = Check(target);
+             if(b){
+           Path p = Paths.get(target);
+           Path read = Files.readSymbolicLink(p);
+           Files.delete(read);
+           linking(target, link);
+        }
+           }catch(Exception e){e.printStackTrace();}
+        }
+    }
 
 public class symb {
     
