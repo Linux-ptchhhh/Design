@@ -85,7 +85,7 @@ class Link implements link{
         }
      }
 
-    void getPath(String path){
+    void getPath(String path){ // find orginal file path as well as the link part;
         try{
             Path p = Paths.get(path);
             if(Files.exists(p)){
@@ -121,16 +121,33 @@ class Link implements link{
 
          }
 
-    void changeLink(String target,String link){ // (target file and new link file) for changing the link of the file;;
+    void changeTar(String otarget,String ntarget){ // (target file and new link file) for changing the link of the file;;
+        // new target and old link..
           try{
-             boolean b = Check(target);
+             boolean b = Check(otarget);
              if(b){
-           Path p = Paths.get(target);
+           Path p = Paths.get(otarget);
            Path read = Files.readSymbolicLink(p);
+           String s = read.toString();
            Files.delete(read);
-           linking(target, link);
+           linking(ntarget,s);
         }
            }catch(Exception e){e.printStackTrace();}
+        }
+
+        void changeLink(String olink,String nlink){
+            try{
+                boolean b = Check(olink);
+                if(b){
+                    Path p = Paths.get(olink);
+                    Path read = Files.readSymbolicLink(p); //old link's file stored here
+                    String s = read.toString();
+                    Files.delete(read);
+                    linking(s,nlink);
+                }else{
+                          System.out.println("Not a link");                    
+                }
+            }catch(Exception e){e.printStackTrace();}
         }
     }
 

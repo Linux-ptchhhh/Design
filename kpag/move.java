@@ -44,6 +44,16 @@ class SendCopy{
          pool.shutdown();
     }catch(Exception e){e.printStackTrace();}
 }
+  public void Dirlist(String dir){ // list the directory files
+         Path p = Paths.get(dir);
+         try{
+         Files.walk(p) 
+             .forEach(path ->{
+              System.out.println(p.relativize(path));
+             });
+            }catch(Exception e){e.printStackTrace();}
+
+}
    
 }
 class move{
