@@ -19,6 +19,16 @@ class Dirc{
    }catch(Exception e){e.printStackTrace();}
    }
 
+   void multipledir(String[] file){
+    try{
+    for(String dir : file){
+    }
+        Files.createDirectories(Path.of(dir));
+    }catch(Exception e){
+        e.getMessage();
+    }
+}
+
 
    
 }

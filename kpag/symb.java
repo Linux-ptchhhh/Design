@@ -140,7 +140,7 @@ class Link implements link{
                 boolean b = Check(olink);
                 if(b){
                     Path p = Paths.get(olink);
-                    Path read = Files.readSymbolicLink(p); //old link's file stored here
+                    Path read = Files.readSymbolicLink(p); //old link's Target file stored here
                     String s = read.toString();
                     Files.delete(read);
                     linking(s,nlink);
@@ -150,7 +150,3 @@ class Link implements link{
             }catch(Exception e){e.printStackTrace();}
         }
     }
-
-public class symb {
-    
-}
