@@ -1,0 +1,61 @@
+KPAG Utility – Description
+
+This package tracks filesystem activities performed using its commands. It uses a serverless database to monitor file movements and operations.
+
+With this, users can quickly find the location of their files within the system.
+(Note: It only tracks file activities performed through the KPAG utility.)
+
+*******************************************THIRU$$34.communityDevelopment**********************************
+******************************************develope.insights.code@gmail.com>>>>>>>>>>>>send me if this script have any mistake>>>>>welcome>>>
+
+maual page:
+
+Commands
+
+kpag -c <file_name>
+Creates a new file in the system when the command is executed in the console.
+
+kpag -rn <old_file_name> <new_file_name>
+Renames an existing file.
+
+kpag -cp <file_name> <destination_folder>
+Copies a file to the specified destination directory.
+
+kpag -re <file_name>
+Reads the file and displays its contents.
+
+kpag -perm <permission> <file_name>
+Sets permissions for a specific file.
+
+kpag -permC -check <file_name>
+Checks the permissions of a file.
+
+ Symbolic Link Commands
+
+kpag -symC <link_file> <target_file>
+Creates a symbolic link between files.
+
+kpag -sl <directory_name>
+Displays all symbolic links inside the specified directory.
+
+kpag -sld <file_name>
+Deletes a symbolic link.
+
+kpag -symlP <file_name>
+Shows the target path of a symbolic link.
+
+kpag -symB <linked_file_name>
+Checks whether a symbolic link is broken or valid.
+
+kpag -symTC <linked_file> <new_target_file>
+Updates the target file of an existing symbolic link. The previous target is replaced.
+
+kpag -symLC <old_link_file> <new_link_file>
+Changes the link file while keeping the same target, replacing the old link.
+
+ Search Command
+
+kpag -search <file_name>
+Displays all paths of the specified file using data from the serverless database.
+
+***********************************************KPAG-TEAM$$34***************************************************
