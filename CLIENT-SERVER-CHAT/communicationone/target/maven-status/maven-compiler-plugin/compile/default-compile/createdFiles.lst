@@ -1,0 +1,7 @@
+networking/communication/DataRepository.class
+networking/communication/KafkaEntity.class
+networking/communication/kafkarepository.class
+networking/communication/DataFromPython.class
+networking/communication/controller.class
+networking/communication/KafkaObserver.class
+networking/communication/CommunicationApplication.class
