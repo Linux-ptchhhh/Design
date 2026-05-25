@@ -21,7 +21,7 @@ def delivery_report(err, msg):
         pass
 
 class TerminalClient(cmd.Cmd):
-    # This is the shell format prompt that will constantly appear
+  
     prompt = "chat-cli> "
     intro = "Type 'send <message>' to chat, or 'quit' to exit."
 
@@ -35,7 +35,7 @@ class TerminalClient(cmd.Cmd):
         if not arg:
             print("Please provide a message. Example: send hello")
             return
-        # Safely send the message using the async loop from this thread
+        
         asyncio.run_coroutine_threadsafe(self.websocket.send(arg), self.loop)
 
     def do_quit(self, arg):
@@ -43,7 +43,7 @@ class TerminalClient(cmd.Cmd):
         data = {"ip": client_ip, "status": "OFFLINE"}
         raw_bytes = json.dumps(data).encode('utf-8')
 
-        # Fix 4: Matched topic to 'user-presence'
+ 
         producer.produce(topic='user-presence', value=raw_bytes, callback=delivery_report)
         producer.poll(0)
         return True
@@ -74,17 +74,14 @@ async def main():
         async with websockets.connect(uri) as websocket:
             print(f"Connected to {uri}!\n")
 
-            # Get the current event loop to pass into the terminal
+           
             loop = asyncio.get_running_loop()
             terminal = TerminalClient(loop, websocket)
 
-            # Start the background listener task
             listen_task = asyncio.create_task(receive_messages(websocket, terminal))
 
-            # Run the cmd terminal in a background thread (replacing send_messages)
             await asyncio.to_thread(start_terminal, terminal)
 
-            # Cleanup when terminal exits
             listen_task.cancel()
 
     except ConnectionRefusedError:
@@ -96,5 +93,4 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\n[STOPPING] Client manually shut down.")
     finally:
-        # Ensure all Kafka messages are sent before shutting down
         producer.flush()
