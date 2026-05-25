@@ -17,7 +17,7 @@ config = {
 
 producer = Producer(config)
 
-# Fix 1: Added the missing delivery_report function
+
 def delivery_report(err, msg):
     if err is not None:
         print(f"[KAFKA ERROR] Message delivery failed: {err}")
@@ -28,7 +28,7 @@ async def javaDatabasecall(message, ip):
     url = SPRING_BOOT_URL
     data = {"client": ip}
 
-    # Send ONLINE status
+
     presence = {"ip" : ip, "status" : "ONLINE"}
 
     try:
@@ -36,10 +36,10 @@ async def javaDatabasecall(message, ip):
             async with session.post(url, json=data) as response:
                 raw_bytes = json.dumps(presence).encode('utf-8')
 
-                # Fix 2: Changed topic to 'user-presence' to match your Spring Boot app
+                
                 producer.produce(topic='user-presence', value=raw_bytes, callback=delivery_report)
 
-                # Use poll(0) instead of flush() inside the async loop so it doesn't block the server
+             
                 producer.poll(0)
 
     except aiohttp.ClientConnectorError:
@@ -49,7 +49,7 @@ async def javaDatabasecall(message, ip):
 
 async def handle_client(websocket):
     connected_clients.add(websocket)
-    client_ip, client_port = websocket.remote_address # Moved this up to use in the finally block
+    client_ip, client_port = websocket.remote_address 
 
     print(f"[NEW CONNECTION] Client {client_ip} connected. Total active: {len(connected_clients)}")
 
@@ -71,7 +71,6 @@ async def handle_client(websocket):
         connected_clients.remove(websocket)
         print(f"[DISCONNECTED] Client {client_ip} left. Total active: {len(connected_clients)}")
 
-        # Fix 3: Send the OFFLINE status to Kafka so Java deletes the IP from the DB
         offline_presence = {"ip": client_ip, "status": "OFFLINE"}
         producer.produce(topic='user-presence', value=json.dumps(offline_presence).encode('utf-8'), callback=delivery_report)
         producer.poll(0)
@@ -82,10 +81,10 @@ async def main():
         await asyncio.Future()
 
 if __name__ == "__main__":
-    # Fix 4: Removed the stray 'p' that was here
+   
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
         print("\n[STOPPING] Server manually shut down.")
-        # Ensure all Kafka messages are sent before shutting down
+        
         producer.flush()
