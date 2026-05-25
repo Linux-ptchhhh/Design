@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  # This is the name of your service container
+  websocket-server:
+    # '.' tells Docker Compose to look for the 'Dockerfile' in the current folder
+    build: .
+    container_name: python-ws-server
+
+    # Maps port 8765 on your laptop to port 8765 inside the container
+    ports:
+      - "8765:8765"
+
+    # This injects your configuration strings into the Python environment dynamically
+    environment:
+      - KAFKA_BROKER=host.docker.internal:9092
+      - SPRING_BOOT_URL=http://host.docker.internal:8080/api/data/print
