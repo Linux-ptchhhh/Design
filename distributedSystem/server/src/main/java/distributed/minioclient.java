@@ -20,7 +20,7 @@ public class minioclient {
         if (user.equals(users) && password.equals(pro)) {
 
             MinioClient minioClient = MinioClient.builder()
-                        .endpoint("http://192.168.46.34:9004")
+                        .endpoint("http://your_server_ip and port")
                         .credentials(users, pro)
                         .build();
 
