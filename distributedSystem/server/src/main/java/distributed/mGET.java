@@ -14,7 +14,7 @@ public class mGET {
            HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(
 
-                    "http://192.168.46.34:9004/minio/metrics/v3/system/drive"))
+                    "http://server_ip and port/minio/metrics/v3/system/drive"))
 
                 .GET()
                 .build();
