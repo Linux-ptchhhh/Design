@@ -1,0 +1,8 @@
+.env
+.env.local
+.env.*
+# Ignore target build directories
+target/
+
+# Ignore compiled class files
+*.class

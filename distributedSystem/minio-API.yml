@@ -1,0 +1,17 @@
+services:
+  minio:
+    image: quay.io/minio/minio:latest
+    container_name: minio
+    ports:
+      - "9004:9000"
+      - "9005:9005"
+    environment:
+      - MINIO_ROOT_USER=poolarea
+      - MINIO_ROOT_PASSWORD=poolarea
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9005"
+
+volumes:
+  minio_data:
+    driver: local
